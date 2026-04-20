@@ -5,7 +5,8 @@
 
 ## Repository Structure
 
-    |── index.html                # Static landing page 
-    |── USER_STORIES.md           # User stories separated by category
-    |── Relational_diagram.pdf    # Relational diagram
-    |── README.md                 # This file
+|–– assignment_1.html       # Static landing page
+|–– README.md               # This file
+|–– Relational_Diagram.pdf  # Relational diagram
+|–– User_Stories            # User stories separated by category
+|–– Uandes.jpg              # Image used in the landing page
