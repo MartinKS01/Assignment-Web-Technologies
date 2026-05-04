@@ -1,0 +1,35 @@
+<div class="container my-5">
+
+  <div class="card shadow p-4">
+
+    <h1><%= @event.title %></h1>
+
+    <p class="text-muted">
+      <%= @event.category.name %> • <%= @event.venue.name %>
+    </p>
+
+    <p><%= @event.description %></p>
+
+    <ul class="list-group my-3">
+
+      <li class="list-group-item">
+        📅 Inicio: <%= @event.start_date.strftime("%d-%m-%Y %H:%M") %>
+      </li>
+
+      <li class="list-group-item">
+        📅 Término: <%= @event.end_date.strftime("%d-%m-%Y %H:%M") %>
+      </li>
+
+      <li class="list-group-item">
+        👥 Cupo: <%= @event.max_attendees %>
+      </li>
+
+      <li class="list-group-item">
+        👤 Organizador: <%= @event.organizer.first_name %>
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
