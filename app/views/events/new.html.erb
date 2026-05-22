@@ -1,0 +1,9 @@
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h1>Create New Event</h1>
+    
+    <%= render 'form', event: @event %>
+    
+    <%= link_to "Cancel", events_path, class: "btn btn-secondary mt-3" %>
+  </div>
+</div>

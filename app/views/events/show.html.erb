@@ -1,35 +1,72 @@
 <div class="container my-5">
-
   <div class="card shadow p-4">
+    <!-- Event Header -->
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div>
+        <h1><%= @event.title %></h1>
+        <p class="text-muted">
+          <%= @event.category.name %> • <%= @event.venue.name %>
+        </p>
+      </div>
+      <span class="badge bg-<%= @event.status %> fs-5">
+        <%= @event.status.titleize %>
+      </span>
+    </div>
 
-    <h1><%= @event.title %></h1>
+    <!-- Description with ActionText -->
+    <div class="mb-4">
+      <%= @event.description %>
+    </div>
 
-    <p class="text-muted">
-      <%= @event.category.name %> • <%= @event.venue.name %>
-    </p>
-
-    <p><%= @event.description %></p>
-
+    <!-- Event Details -->
     <ul class="list-group my-3">
-
       <li class="list-group-item">
         📅 Inicio: <%= @event.start_date.strftime("%d-%m-%Y %H:%M") %>
       </li>
-
       <li class="list-group-item">
         📅 Término: <%= @event.end_date.strftime("%d-%m-%Y %H:%M") %>
       </li>
-
       <li class="list-group-item">
-        👥 Cupo: <%= @event.max_attendees %>
+        👥 Cupo: <%= @event.confirmed_count %>/<%= @event.max_attendees %>
+        <% if @event.available_spots > 0 %>
+          <span class="text-success">(<%= @event.available_spots %> disponibles)</span>
+        <% else %>
+          <span class="text-danger">(Lleno)</span>
+        <% end %>
       </li>
-
       <li class="list-group-item">
         👤 Organizador: <%= @event.organizer.first_name %>
       </li>
-
     </ul>
 
-  </div>
+    <!-- Action Buttons for Organizer -->
+    <% if current_user && @event.organizer == current_user %>
+      <div class="mt-4">
+        <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-warning" %>
+        <%= button_to "Delete Event", event_path(@event), method: :delete, 
+            data: { confirm: "Are you sure you want to delete this event?" }, 
+            class: "btn btn-danger" %>
+      </div>
+    <% end %>
 
+    <!-- Reviews Section -->
+    <% if @reviews.any? %>
+      <div class="mt-5">
+        <h3>Reviews</h3>
+        <% @reviews.each do |review| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <strong><%= review.user.first_name %></strong>
+                <span>
+                  <% review.rating.times do %>⭐<% end %>
+                </span>
+              </div>
+              <p class="mt-2"><%= review.comment %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
