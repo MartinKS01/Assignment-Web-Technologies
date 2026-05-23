@@ -7327,3 +7327,441 @@ Processing by EventsController#index as TURBO_STREAM
 Completed 200 OK in 11ms (Views: 7.4ms | ActiveRecord: 2.1ms (7 queries, 0 cached) | GC: 0.5ms)
 
 
+Started GET "/" for ::1 at 2026-05-23 00:05:50 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Proyecto'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 9.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/events" for ::1 at 2026-05-23 00:05:52 -0400
+Processing by EventsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (37.4ms)[0m  [1m[34mSELECT "events".* FROM "events" /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (1, 2, 3) /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mVenue Load (0.4ms)[0m  [1m[34mSELECT "venues".* FROM "venues" WHERE "venues"."id" IN (1, 2, 3) /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mActionText::RichText Load (1.3ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 1 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  [1m[36mActionText::RichText Load (0.4ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 2 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  [1m[36mActionText::RichText Load (0.1ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 3 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  Rendered events/index.html.erb within layouts/application (Duration: 127.9ms | GC: 32.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 128.3ms | GC: 32.6ms)
+Completed 200 OK in 172ms (Views: 76.1ms | ActiveRecord: 53.2ms (7 queries, 0 cached) | GC: 55.6ms)
+
+
+Started GET "/categories" for ::1 at 2026-05-23 00:06:08 -0400
+Processing by CategoriesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  Rendered categories/index.html.erb within layouts/application (Duration: 5.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `description' for an instance of Category)
+Caused by: NoMethodError (undefined method `description' for an instance of Category)
+
+Information for: ActionView::Template::Error (undefined method `description' for an instance of Category):
+    11:           <div class="card-body d-flex flex-column">
+    12:             <h5 class="card-title"><%= category.name %></h5>
+    13:             <% if category.description.present? %>
+    14:               <p class="card-text flex-grow-1"><%= category.description %></p>
+    15:             <% end %>
+    16:             <p class="text-muted mb-3">
+    17:               <i class="bi bi-calendar-event"></i> <%= pluralize(category.events.count, 'event') %>
+  
+app/views/categories/index.html.erb:14
+app/views/categories/index.html.erb:9
+
+Information for cause: NoMethodError (undefined method `description' for an instance of Category):
+  
+app/views/categories/index.html.erb:14
+app/views/categories/index.html.erb:9
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8526496258503379485) /*application='Proyecto'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Proyecto'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Proyecto'*/[0m
+Migrating to AddDescriptionToCategories (20260523040701)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Proyecto'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mALTER TABLE "categories" ADD "description" text /*application='Proyecto'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260523040701') RETURNING "version" /*application='Proyecto'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='Proyecto'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(8526496258503379485) /*application='Proyecto'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Proyecto'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Proyecto'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Proyecto'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Proyecto'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Proyecto'*/[0m
+Started GET "/categories" for ::1 at 2026-05-23 00:07:13 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Proyecto'*/[0m
+Processing by CategoriesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (25.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 1 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 2 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 3 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  Rendered categories/index.html.erb within layouts/application (Duration: 45.1ms | GC: 6.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 48.3ms | GC: 6.9ms)
+Completed 200 OK in 57ms (Views: 20.1ms | ActiveRecord: 29.4ms (4 queries, 0 cached) | GC: 7.1ms)
+
+
+Started GET "/categories/new" for ::1 at 2026-05-23 00:07:14 -0400
+Processing by CategoriesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/new.html.erb within layouts/application
+  Rendered categories/_form.html.erb (Duration: 7.2ms | GC: 0.0ms)
+  Rendered categories/new.html.erb within layouts/application (Duration: 8.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 10.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/venues" for ::1 at 2026-05-23 00:07:15 -0400
+Processing by VenuesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering venues/index.html.erb within layouts/application
+  [1m[36mVenue Load (0.9ms)[0m  [1m[34mSELECT "venues".* FROM "venues" /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:9
+  [1m[36mEvent Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 1 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 2 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 3 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  Rendered venues/index.html.erb within layouts/application (Duration: 29.8ms | GC: 10.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 31.7ms | GC: 11.4ms)
+Completed 200 OK in 36ms (Views: 28.5ms | ActiveRecord: 4.7ms (4 queries, 0 cached) | GC: 11.4ms)
+
+
+Started GET "/categories" for ::1 at 2026-05-23 00:07:16 -0400
+Processing by CategoriesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  [1m[36mEvent Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 1 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 2 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 3 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  Rendered categories/index.html.erb within layouts/application (Duration: 22.8ms | GC: 13.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 26.5ms | GC: 16.0ms)
+Completed 200 OK in 32ms (Views: 25.6ms | ActiveRecord: 1.7ms (4 queries, 0 cached) | GC: 19.0ms)
+
+
+Started GET "/categories/new" for ::1 at 2026-05-23 00:07:38 -0400
+Processing by CategoriesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/new.html.erb within layouts/application
+  Rendered categories/_form.html.erb (Duration: 7.8ms | GC: 5.9ms)
+  Rendered categories/new.html.erb within layouts/application (Duration: 8.2ms | GC: 5.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.5ms | GC: 7.2ms)
+Completed 200 OK in 15ms (Views: 12.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 10.1ms)
+
+
+Started GET "/categories/3" for ::1 at 2026-05-23 00:07:42 -0400
+Processing by CategoriesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 3 LIMIT 1 /*action='show',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:49:in `set_category'
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."category_id" = 3 /*action='show',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/show.html.erb:7
+  Rendered categories/show.html.erb within layouts/application (Duration: 23.3ms | GC: 4.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.4ms | GC: 4.9ms)
+Completed 200 OK in 40ms (Views: 24.6ms | ActiveRecord: 1.0ms (2 queries, 0 cached) | GC: 13.9ms)
+
+
+Started GET "/categories/3/edit" for ::1 at 2026-05-23 00:07:43 -0400
+Processing by CategoriesController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 3 LIMIT 1 /*action='edit',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:49:in `set_category'
+  Rendering layout layouts/application.html.erb
+  Rendering categories/edit.html.erb within layouts/application
+  Rendered categories/_form.html.erb (Duration: 2.0ms | GC: 0.2ms)
+  Rendered categories/edit.html.erb within layouts/application (Duration: 2.9ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | GC: 0.2ms)
+Completed 200 OK in 9ms (Views: 4.5ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/venues" for ::1 at 2026-05-23 00:07:48 -0400
+Processing by VenuesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering venues/index.html.erb within layouts/application
+  [1m[36mVenue Load (0.5ms)[0m  [1m[34mSELECT "venues".* FROM "venues" /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:9
+  [1m[36mEvent Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 1 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 2 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 3 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  Rendered venues/index.html.erb within layouts/application (Duration: 9.5ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | GC: 0.5ms)
+Completed 200 OK in 12ms (Views: 9.9ms | ActiveRecord: 1.4ms (4 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/venues/new" for ::1 at 2026-05-23 00:07:49 -0400
+Processing by VenuesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering venues/new.html.erb within layouts/application
+  Rendered venues/_form.html.erb (Duration: 3.4ms | GC: 0.0ms)
+  Rendered venues/new.html.erb within layouts/application (Duration: 4.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/venues" for ::1 at 2026-05-23 00:08:00 -0400
+Processing by VenuesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "venue"=>{"name"=>"Humanidades", "address"=>"h", "capacity"=>"200"}, "commit"=>"Create Venue"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:19:in `create'
+  [1m[36mVenue Create (1.8ms)[0m  [1m[32mINSERT INTO "venues" ("address", "capacity", "created_at", "name", "updated_at") VALUES ('h', 200, '2026-05-23 04:08:00.921378', 'Humanidades', '2026-05-23 04:08:00.921378') RETURNING "id" /*action='create',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*action='create',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:19:in `create'
+Redirected to http://localhost:3000/venues/4
+↳ app/controllers/venues_controller.rb:20:in `create'
+Completed 302 Found in 10ms (ActiveRecord: 2.4ms (1 query, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/venues/4" for ::1 at 2026-05-23 00:08:00 -0400
+Processing by VenuesController#show as TURBO_STREAM
+  Parameters: {"id"=>"4"}
+  [1m[36mVenue Load (0.5ms)[0m  [1m[34mSELECT "venues".* FROM "venues" WHERE "venues"."id" = 4 LIMIT 1 /*action='show',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:49:in `set_venue'
+  Rendering layout layouts/application.html.erb
+  Rendering venues/show.html.erb within layouts/application
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."venue_id" = 4 /*action='show',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/show.html.erb:14
+  Rendered venues/show.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 4.5ms | ActiveRecord: 0.9ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-05-23 00:08:02 -0400
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 4.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for ::1 at 2026-05-23 00:08:03 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" /*action='index',application='Proyecto',controller='users'*/[0m
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 9.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.9ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 9.0ms | ActiveRecord: 3.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/venues" for ::1 at 2026-05-23 00:08:03 -0400
+Processing by VenuesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering venues/index.html.erb within layouts/application
+  [1m[36mVenue Load (0.4ms)[0m  [1m[34mSELECT "venues".* FROM "venues" /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:9
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 1 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 2 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 3 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 4 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  Rendered venues/index.html.erb within layouts/application (Duration: 6.4ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.0ms | GC: 0.5ms)
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.2ms (5 queries, 0 cached) | GC: 0.5ms)
+
+
+Started DELETE "/venues/4" for ::1 at 2026-05-23 00:08:05 -0400
+Processing by VenuesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"4"}
+  [1m[36mVenue Load (0.5ms)[0m  [1m[34mSELECT "venues".* FROM "venues" WHERE "venues"."id" = 4 LIMIT 1 /*action='destroy',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:49:in `set_venue'
+  [1m[36mEvent Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "events" WHERE "events"."venue_id" = 4 LIMIT 1 /*action='destroy',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='destroy',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:41:in `destroy'
+  [1m[36mVenue Destroy (2.2ms)[0m  [1m[31mDELETE FROM "venues" WHERE "venues"."id" = 4 /*action='destroy',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:41:in `destroy'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*action='destroy',application='Proyecto',controller='venues'*/[0m
+  ↳ app/controllers/venues_controller.rb:41:in `destroy'
+Redirected to http://localhost:3000/venues
+↳ app/controllers/venues_controller.rb:42:in `destroy'
+Completed 302 Found in 12ms (ActiveRecord: 3.8ms (3 queries, 0 cached) | GC: 0.8ms)
+
+
+Started GET "/venues" for ::1 at 2026-05-23 00:08:05 -0400
+Processing by VenuesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering venues/index.html.erb within layouts/application
+  [1m[36mVenue Load (0.4ms)[0m  [1m[34mSELECT "venues".* FROM "venues" /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:9
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 1 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 2 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."venue_id" = 3 /*action='index',application='Proyecto',controller='venues'*/[0m
+  ↳ app/views/venues/index.html.erb:23
+  Rendered venues/index.html.erb within layouts/application (Duration: 7.8ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.7ms | GC: 0.4ms)
+Completed 200 OK in 11ms (Views: 8.1ms | ActiveRecord: 1.2ms (4 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/categories" for ::1 at 2026-05-23 00:08:06 -0400
+Processing by CategoriesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  [1m[36mEvent Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 1 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 2 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 3 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  Rendered categories/index.html.erb within layouts/application (Duration: 8.2ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 0.5ms)
+Completed 200 OK in 11ms (Views: 8.7ms | ActiveRecord: 1.2ms (4 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/categories/new" for ::1 at 2026-05-23 00:08:06 -0400
+Processing by CategoriesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/new.html.erb within layouts/application
+  Rendered categories/_form.html.erb (Duration: 1.7ms | GC: 0.0ms)
+  Rendered categories/new.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.8ms | GC: 1.0ms)
+Completed 200 OK in 6ms (Views: 4.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.0ms)
+
+
+Started POST "/categories" for ::1 at 2026-05-23 00:08:15 -0400
+Processing by CategoriesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "category"=>{"name"=>"Party", "description"=>"party rock"}, "commit"=>"Create Category"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='create',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:19:in `create'
+  [1m[36mCategory Create (2.3ms)[0m  [1m[32mINSERT INTO "categories" ("created_at", "name", "updated_at", "description") VALUES ('2026-05-23 04:08:15.463714', 'Party', '2026-05-23 04:08:15.463714', 'party rock') RETURNING "id" /*action='create',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*action='create',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:19:in `create'
+Redirected to http://localhost:3000/categories/4
+↳ app/controllers/categories_controller.rb:20:in `create'
+Completed 302 Found in 10ms (ActiveRecord: 2.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/categories/4" for ::1 at 2026-05-23 00:08:15 -0400
+Processing by CategoriesController#show as TURBO_STREAM
+  Parameters: {"id"=>"4"}
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 4 LIMIT 1 /*action='show',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:49:in `set_category'
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."category_id" = 4 /*action='show',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/show.html.erb:7
+  Rendered categories/show.html.erb within layouts/application (Duration: 1.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 3.5ms | ActiveRecord: 0.9ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/events" for ::1 at 2026-05-23 00:08:16 -0400
+Processing by EventsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering events/index.html.erb within layouts/application
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (1, 2, 3) /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mVenue Load (0.2ms)[0m  [1m[34mSELECT "venues".* FROM "venues" WHERE "venues"."id" IN (1, 2, 3) /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:15
+  [1m[36mActionText::RichText Load (1.4ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 1 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  [1m[36mActionText::RichText Load (0.4ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 2 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  [1m[36mActionText::RichText Load (0.2ms)[0m  [1m[34mSELECT "action_text_rich_texts".* FROM "action_text_rich_texts" WHERE "action_text_rich_texts"."record_id" = 3 AND "action_text_rich_texts"."record_type" = 'Event' AND "action_text_rich_texts"."name" = 'description' LIMIT 1 /*action='index',application='Proyecto',controller='events'*/[0m
+  ↳ app/views/events/index.html.erb:30
+  Rendered events/index.html.erb within layouts/application (Duration: 45.4ms | GC: 10.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 46.3ms | GC: 10.9ms)
+Completed 200 OK in 49ms (Views: 41.1ms | ActiveRecord: 6.6ms (7 queries, 0 cached) | GC: 10.9ms)
+
+
+Started GET "/categories" for ::1 at 2026-05-23 00:08:16 -0400
+Processing by CategoriesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  [1m[36mEvent Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 1 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 2 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 3 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 4 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  Rendered categories/index.html.erb within layouts/application (Duration: 10.3ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | GC: 0.2ms)
+Completed 200 OK in 13ms (Views: 10.7ms | ActiveRecord: 1.6ms (5 queries, 0 cached) | GC: 0.2ms)
+
+
+Started DELETE "/categories/4" for ::1 at 2026-05-23 00:08:21 -0400
+Processing by CategoriesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"4"}
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 4 LIMIT 1 /*action='destroy',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:49:in `set_category'
+  [1m[36mEvent Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "events" WHERE "events"."category_id" = 4 LIMIT 1 /*action='destroy',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:38:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*action='destroy',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:41:in `destroy'
+  [1m[36mCategory Destroy (1.5ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 4 /*action='destroy',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:41:in `destroy'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*action='destroy',application='Proyecto',controller='categories'*/[0m
+  ↳ app/controllers/categories_controller.rb:41:in `destroy'
+Redirected to http://localhost:3000/categories
+↳ app/controllers/categories_controller.rb:42:in `destroy'
+Completed 302 Found in 10ms (ActiveRecord: 2.7ms (3 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/categories" for ::1 at 2026-05-23 00:08:21 -0400
+Processing by CategoriesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:9
+  [1m[36mEvent Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 1 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 2 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  [1m[36mEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "events" WHERE "events"."category_id" = 3 /*action='index',application='Proyecto',controller='categories'*/[0m
+  ↳ app/views/categories/index.html.erb:18
+  Rendered categories/index.html.erb within layouts/application (Duration: 7.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.6ms | GC: 0.6ms)
+Completed 200 OK in 10ms (Views: 8.1ms | ActiveRecord: 1.0ms (4 queries, 0 cached) | GC: 0.6ms)
+
+

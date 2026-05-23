@@ -1,0 +1,32 @@
+<%= form_with(model: venue, local: true, class: "mt-4") do |form| %>
+  <% if venue.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(venue.errors.count, "error") %> prohibited this venue from being saved:</h4>
+      <ul>
+        <% venue.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "e.g., Main Auditorium", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address, class: "form-label" %>
+    <%= form.text_field :address, class: "form-control", placeholder: "e.g., Building A, Floor 1", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :capacity, "Capacity (optional)", class: "form-label" %>
+    <%= form.number_field :capacity, class: "form-control", min: 1, placeholder: "e.g., 200" %>
+    <small class="text-muted">Maximum number of people this venue can hold</small>
+  </div>
+
+  <div class="mt-4">
+    <%= form.submit venue.new_record? ? "Create Venue" : "Update Venue", class: "btn btn-primary" %>
+  </div>
+<% end %>

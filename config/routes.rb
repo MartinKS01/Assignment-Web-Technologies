@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :events  # Changed from only: [:index, :show]
+  resources :events
   resources :users, only: [:index, :show]
-  resources :categories, only: [:index, :show]
-  resources :venues, only: [:index, :show]
+  resources :categories  # los cambie para incluir todos
+  resources :venues      # los cambie para incluir todos
 end
