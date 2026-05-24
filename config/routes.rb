@@ -3,8 +3,15 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :events
+  resources :events do
+    member do
+      patch :publish
+      patch :cancel
+    end
+    resources :registrations, only: [:create, :destroy]
+  end
+  
   resources :users, only: [:index, :show]
-  resources :categories  # los cambie para incluir todos
-  resources :venues      # los cambie para incluir todos
+  resources :categories
+  resources :venues
 end

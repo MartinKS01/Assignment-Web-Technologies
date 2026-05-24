@@ -20,16 +20,46 @@ class Event < ApplicationRecord
   validates :max_attendees, numericality: { greater_than: 0 }
   validate :end_after_start
 
+  scope :published_events, -> { where(status: :published) }
+  scope :upcoming, -> { where("start_date > ?", Time.current) }
+
+  # Metodos
   def confirmed_registrations
     registrations.where(status: :confirmed)
+  end
+
+  def waitlisted_registrations
+    registrations.where(status: :waitlisted).order(:created_at)
   end
 
   def confirmed_count
     confirmed_registrations.count
   end
 
+  def waitlist_count
+    waitlisted_registrations.count
+  end
+
   def available_spots
     max_attendees - confirmed_count
+  end
+
+  def full?
+    available_spots <= 0
+  end
+
+  def can_register?
+    published? && start_date > Time.current
+  end
+
+  def user_registered?(user)
+    return false unless user
+    registrations.exists?(user: user)
+  end
+
+  def user_registration(user)
+    return nil unless user
+    registrations.find_by(user: user)
   end
 
   private

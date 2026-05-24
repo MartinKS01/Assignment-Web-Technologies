@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_current_user, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :publish, :cancel]
+  before_action :set_current_user, only: [:show, :new, :create, :edit, :update, :destroy, :publish, :cancel]
 
   def index
     @events = Event.includes(:category, :venue, :organizer).all
@@ -8,6 +8,7 @@ class EventsController < ApplicationController
 
   def show
     @reviews = @event.reviews.includes(:user).order(created_at: :desc)
+    @user_registration = @event.user_registration(current_user) if current_user
   end
 
   def new
@@ -55,14 +56,38 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Event deleted successfully."
   end
 
+  def publish
+    unless @event.organizer == current_user
+      redirect_to @event, alert: "You can only publish your own events."
+      return
+    end
+
+    if @event.update(status: :published)
+      redirect_to @event, notice: "Event published successfully! Users can now register."
+    else
+      redirect_to @event, alert: "Could not publish event."
+    end
+  end
+
+  def cancel
+    unless @event.organizer == current_user
+      redirect_to @event, alert: "You can only cancel your own events."
+      return
+    end
+
+    if @event.update(status: :cancelled)
+      redirect_to @event, notice: "Event cancelled."
+    else
+      redirect_to @event, alert: "Could not cancel event."
+    end
+  end
+
   private
 
   def set_event
     @event = Event.find(params[:id])
   end
 
-
-  #Para poder usar al primer usuario como "usuario actual", luego hacemos autenticación real.
   def set_current_user
     @current_user = User.first
   end
