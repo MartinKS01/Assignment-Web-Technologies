@@ -158,6 +158,7 @@
       </div>
     <% end %>
 
+    <!-- Reviews Section -->
     <% if @reviews.any? %>
       <div class="mt-5">
         <h3>Reviews</h3>
@@ -176,5 +177,33 @@
         <% end %>
       </div>
     <% end %>
+    <div class="mt-5">
+      <h3> Leave a Review</h3>
+      <%= form_with model: [@event, @review] do |f| %>
+
+        <div class="mb-3">
+          <%= f.label :rating %>
+
+          <%= f.number_field :rating,
+                            min: 1,
+                            max: 5,
+                            class: "form-control",
+                            required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :comment %>
+
+          <%= f.text_area :comment,
+                          class: "form-control",
+                          required: true %>
+        </div>
+
+        <%= f.submit "Submit Review",
+                    class: "btn btn-primary" %>
+
+      <% end %>
+    </div>
+    
   </div>
 </div>

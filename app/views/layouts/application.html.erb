@@ -54,6 +54,13 @@
 
       </div>
     </nav>
+
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type == "notice" ? "success" : "danger" %>">
+        <%= message %>
+      </div>
+    <% end %>
+    
     <%= yield %>
 
     <footer class="bg-dark text-white py-4 mt-auto">

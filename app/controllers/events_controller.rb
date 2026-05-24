@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   def show
     @reviews = @event.reviews.includes(:user).order(created_at: :desc)
     @user_registration = @event.user_registration(current_user) if current_user
+    @review = Review.new
   end
 
   def new

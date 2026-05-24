@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       patch :cancel
     end
     resources :registrations, only: [:create, :destroy]
+    resources :reviews, only: [:create, :destroy]
   end
   
   resources :users, only: [:index, :show]
