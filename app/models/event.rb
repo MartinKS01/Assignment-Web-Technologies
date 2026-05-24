@@ -49,7 +49,7 @@ class Event < ApplicationRecord
   end
 
   def can_register?
-    published? && start_date > Time.current
+    published? && start_date > Time.current && !cancelled?
   end
 
   def user_registered?(user)

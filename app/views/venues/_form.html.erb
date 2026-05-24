@@ -1,9 +1,13 @@
 <%= form_with(model: venue, local: true, class: "mt-4") do |form| %>
-  <% if venue.errors.any? %>
+  <% if @event.errors.any? %>
     <div class="alert alert-danger">
-      <h4><%= pluralize(venue.errors.count, "error") %> prohibited this venue from being saved:</h4>
+      <h4>
+        <%= pluralize(@event.errors.count, "error") %>
+        prevented this event from being saved:
+      </h4>
+
       <ul>
-        <% venue.errors.full_messages.each do |message| %>
+        <% @event.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
