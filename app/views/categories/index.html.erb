@@ -19,10 +19,12 @@
             
             <div class="d-flex gap-2 mt-auto">
               <%= link_to "View Details", category_path(category), class: "btn btn-sm btn-outline-primary" %>
-              <%= link_to "Edit", edit_category_path(category), class: "btn btn-sm btn-warning" %>
-              <%= button_to "Delete", category_path(category), method: :delete, 
-                  data: { confirm: "Are you sure?" }, 
-                  class: "btn btn-sm btn-danger" %>
+              <% if user_signed_in? %>
+                <%= link_to "Edit", edit_category_path(category), class: "btn btn-sm btn-warning" %>
+                <%= button_to "Delete", category_path(category), method: :delete, 
+                    data: { confirm: "Are you sure?" }, 
+                    class: "btn btn-sm btn-danger" %>
+              <% end %>
             </div>
           </div>
         </div>

@@ -177,28 +177,34 @@
     <% end %>
 
     <!-- Reviews Section -->
-    <% if @reviews.any? %>
-      <div class="mt-5">
-        <h3>Reviews</h3>
+    <div class="mt-5">
+      <h3>Reviews (<%= @reviews.count %>)</h3>
+      
+      <% if @reviews.any? %>
         <% @reviews.each do |review| %>
           <div class="card mb-3">
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <strong><%= review.user.first_name %></strong>
+                <strong><%= review.user.first_name %> <%= review.user.last_name %></strong>
                 <span>
                   <% review.rating.times do %>⭐<% end %>
+                  <% (5 - review.rating).times do %>☆<% end %>
                 </span>
               </div>
-              <p class="mt-2"><%= review.comment %></p>
+              <p class="mt-2 mb-0"><%= review.comment %></p>
+              <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
             </div>
           </div>
         <% end %>
-      </div>
-    <% end %>
+      <% else %>
+        <p class="text-muted">No reviews yet.</p>
+      <% end %>
+    </div>
 
     <% if @event.finished? &&
+      current_user &&
       @event.registrations.exists?(
-        user: @current_user,
+        user: current_user,
         status: :confirmed
       ) %>
 

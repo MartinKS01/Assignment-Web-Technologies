@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :publish, :cancel]
-  before_action :set_current_user, only: [:show, :new, :create, :edit, :update, :destroy, :publish, :cancel]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :publish, :cancel]
 
   def index
     @events = Event.includes(:category, :venue, :organizer).all
@@ -64,7 +64,7 @@ class EventsController < ApplicationController
     end
 
     if @event.update(status: :published)
-      redirect_to @event, notice: "Event published successfully! Users can now register."
+      redirect_to @event, notice: "Event published successfully!"
     else
       redirect_to @event, alert: "Could not publish event."
     end
@@ -88,15 +88,6 @@ class EventsController < ApplicationController
   def set_event
     @event = Event.find(params[:id])
   end
-
-  def set_current_user
-    @current_user = User.first
-  end
-
-  def current_user
-    @current_user
-  end
-  helper_method :current_user
 
   def event_params
     params.require(:event).permit(:title, :description, :start_date, :end_date, :max_attendees, :category_id, :venue_id)

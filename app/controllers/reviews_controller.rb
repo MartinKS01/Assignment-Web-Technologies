@@ -1,35 +1,31 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_event
-  before_action :set_review, only: [:edit, :update, :destroy]
-  before_action :set_current_user
 
   def create
     @review = @event.reviews.build(review_params)
-    @review.user = @current_user
+    @review.user = current_user
 
     if @review.save
-      redirect_to @event, notice: "Review created successfully."
+      redirect_to @event, notice: "Review submitted successfully!"
     else
-      flash[:alert] = @review.errors.full_messages.join(", ")
-      redirect_to @event
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @review.update(review_params)
-      redirect_to @event, notice: "Review updated successfully."
-    else
+      @reviews = @event.reviews.includes(:user).order(created_at: :desc)
+      @user_registration = @event.user_registration(current_user)
       flash.now[:alert] = @review.errors.full_messages.join(", ")
-      render :edit, status: :unprocessable_entity
+      render "events/show", status: :unprocessable_entity
     end
   end
 
   def destroy
+    @review = @event.reviews.find(params[:id])
+
+    unless @review.user == current_user
+      redirect_to @event, alert: "You can only delete your own reviews."
+      return
+    end
+
     @review.destroy
-    redirect_to @event, notice: "Review deleted successfully."
+    redirect_to @event, notice: "Review deleted."
   end
 
   private
@@ -38,17 +34,7 @@ class ReviewsController < ApplicationController
     @event = Event.find(params[:event_id])
   end
 
-  def set_review
-    @review = @event.reviews.find(params[:id])
-  end
-
   def review_params
     params.require(:review).permit(:rating, :comment)
   end
-
-  def set_current_user
-    # For now, we'll use the first user as current user
-    @current_user = User.first
-  end
-
 end
