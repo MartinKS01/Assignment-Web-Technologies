@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
-  enum :role, { regular: 0, admin: 1 }
+  enum :role, { regular: "regular", admin: "admin" }
 
 
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id"

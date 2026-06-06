@@ -11,10 +11,12 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    authorize! :create, Category
     @category = Category.new
   end
 
   def create
+    authorize! :create, Category
     @category = Category.new(category_params)
 
     if @category.save
@@ -25,9 +27,12 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    authorize! :edit, @category
   end
 
   def update
+    authorize! :update, @category
+
     if @category.update(category_params)
       redirect_to @category, notice: "Category updated successfully."
     else
@@ -36,6 +41,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @category
+
     if @category.events.any?
       redirect_to @category, alert: "Cannot delete category with existing events."
     else

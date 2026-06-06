@@ -11,10 +11,12 @@ class VenuesController < ApplicationController
   end
 
   def new
+    authorize! :create, Venue
     @venue = Venue.new
   end
 
   def create
+    authorize! :create, Venue
     @venue = Venue.new(venue_params)
 
     if @venue.save
@@ -25,9 +27,12 @@ class VenuesController < ApplicationController
   end
 
   def edit
+    authorize! :edit, @venue
   end
 
   def update
+    authorize! :update, @venue
+
     if @venue.update(venue_params)
       redirect_to @venue, notice: "Venue updated successfully."
     else
@@ -36,6 +41,8 @@ class VenuesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @venue
+
     if @venue.events.any?
       redirect_to @venue, alert: "Cannot delete venue with existing events."
     else

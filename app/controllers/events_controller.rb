@@ -14,12 +14,14 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    authorize! :create, @event
   end
 
   def create
     @event = Event.new(event_params)
     @event.organizer = current_user
     @event.status = :draft
+    authorize! :create, @event
 
     if @event.save
       redirect_to @event, notice: "Event created successfully as draft."
@@ -29,16 +31,11 @@ class EventsController < ApplicationController
   end
 
   def edit
-    unless @event.organizer == current_user
-      redirect_to @event, alert: "You can only edit your own events."
-    end
+    authorize! :edit, @event
   end
 
   def update
-    unless @event.organizer == current_user
-      redirect_to @event, alert: "You can only edit your own events."
-      return
-    end
+    authorize! :update, @event
 
     if @event.update(event_params)
       redirect_to @event, notice: "Event updated successfully."
@@ -48,20 +45,13 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    unless @event.organizer == current_user
-      redirect_to events_path, alert: "You can only delete your own events."
-      return
-    end
-
+    authorize! :destroy, @event
     @event.destroy
     redirect_to events_path, notice: "Event deleted successfully."
   end
 
   def publish
-    unless @event.organizer == current_user
-      redirect_to @event, alert: "You can only publish your own events."
-      return
-    end
+    authorize! :publish, @event
 
     if @event.update(status: :published)
       redirect_to @event, notice: "Event published successfully!"
@@ -71,10 +61,7 @@ class EventsController < ApplicationController
   end
 
   def cancel
-    unless @event.organizer == current_user
-      redirect_to @event, alert: "You can only cancel your own events."
-      return
-    end
+    authorize! :cancel, @event
 
     if @event.update(status: :cancelled)
       redirect_to @event, notice: "Event cancelled."

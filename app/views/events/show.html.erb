@@ -121,7 +121,7 @@
     <% end %>
 
     <!-- Registered Users List (for organizer) -->
-    <% if current_user && @event.organizer == current_user %>
+    <% if can? :edit, @event %>
       <div class="card mt-4">
         <div class="card-header">
           <h5 class="mb-0">Registered Attendees</h5>

@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: "⛔ #{exception.message}" }
+      format.json { render json: { error: exception.message }, status: :forbidden }
+    end
+  end
+
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
