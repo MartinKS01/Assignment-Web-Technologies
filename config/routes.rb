@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  get "admin/dashboard", to: "admin#dashboard", as: :admin_dashboard
+
   resources :events do
     member do
       patch :publish

@@ -1,0 +1,148 @@
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p class="text-muted">Welcome back, <%= current_user.full_name %>!</p>
+    </div>
+    <span class="badge bg-danger fs-6">Admin</span>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary shadow">
+        <div class="card-body text-center">
+          <h2><%= @total_users %></h2>
+          <p class="mb-0">Total Users</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success shadow">
+        <div class="card-body text-center">
+          <h2><%= @total_events %></h2>
+          <p class="mb-0">Total Events</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-warning shadow">
+        <div class="card-body text-center">
+          <h2><%= @total_registrations %></h2>
+          <p class="mb-0">Registrations</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-info shadow">
+        <div class="card-body text-center">
+          <h2><%= @total_reviews %></h2>
+          <p class="mb-0">Reviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Events by Status + Quick Actions -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header">
+          <h5 class="mb-0">Events by Status</h5>
+        </div>
+        <div class="card-body">
+          <% @events_by_status.each do |status, count| %>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-secondary"><%= status.titleize %></span>
+              <strong><%= count %></strong>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header">
+          <h5 class="mb-0">Quick Actions</h5>
+        </div>
+        <div class="card-body d-grid gap-2">
+          <%= link_to "Manage Events", events_path, class: "btn btn-outline-primary" %>
+          <%= link_to "Manage Categories", categories_path, class: "btn btn-outline-success" %>
+          <%= link_to "Manage Venues", venues_path, class: "btn btn-outline-warning" %>
+          <%= link_to "Manage Users", users_path, class: "btn btn-outline-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Users -->
+  <div class="card shadow mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Recent Users</h5>
+      <%= link_to "View All", users_path, class: "btn btn-sm btn-outline-primary" %>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Joined</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_users.each do |user| %>
+            <tr>
+              <td><%= user.full_name %></td>
+              <td><%= user.email %></td>
+              <td>
+                <span class="badge <%= user.admin? ? 'bg-danger' : 'bg-secondary' %>">
+                  <%= user.role.titleize %>
+                </span>
+              </td>
+              <td><%= time_ago_in_words(user.created_at) %> ago</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Recent Events -->
+  <div class="card shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Recent Events</h5>
+      <%= link_to "View All", events_path, class: "btn btn-sm btn-outline-primary" %>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Organizer</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_events.each do |event| %>
+            <tr>
+              <td><%= link_to event.title, event_path(event) %></td>
+              <td><%= event.organizer.full_name %></td>
+              <td><%= event.category.name %></td>
+              <td>
+                <span class="badge bg-primary"><%= event.status.titleize %></span>
+              </td>
+              <td>
+                <%= link_to "Edit", edit_event_path(event), class: "btn btn-sm btn-warning" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
