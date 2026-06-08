@@ -1,0 +1,111 @@
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public[0m
+  [1m[35m (52.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "proyecto_test"[0m
+  [1m[35m (104.2ms)[0m  [1m[35mCREATE DATABASE "proyecto_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (5.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "action_text_rich_texts" CASCADE[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "action_text_rich_texts" ("id" bigserial primary key, "body" text, "created_at" timestamp(6) NOT NULL, "name" character varying NOT NULL, "record_id" bigint NOT NULL, "record_type" character varying NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_action_text_rich_texts_uniqueness" ON "action_text_rich_texts" ("record_type", "record_id", "name")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments" CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "name" character varying NOT NULL, "record_id" bigint NOT NULL, "record_type" character varying NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "byte_size" bigint NOT NULL, "checksum" character varying, "content_type" character varying, "created_at" timestamp(6) NOT NULL, "filename" character varying NOT NULL, "key" character varying NOT NULL, "metadata" text, "service_name" character varying NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_variant_records" CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "description" text, "name" character varying, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "category_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "description" text, "end_date" timestamp(6), "max_attendees" integer, "organizer_id" bigint, "start_date" timestamp(6), "status" integer, "title" character varying, "updated_at" timestamp(6) NOT NULL, "venue_id" bigint NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_events_on_category_id" ON "events" ("category_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_events_on_organizer_id" ON "events" ("organizer_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_events_on_venue_id" ON "events" ("venue_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "registrations" CASCADE[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "registrations" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "event_id" bigint NOT NULL, "status" integer, "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_registrations_on_event_id" ON "registrations" ("event_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE INDEX "index_registrations_on_user_id" ON "registrations" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "comment" text, "created_at" timestamp(6) NOT NULL, "event_id" bigint NOT NULL, "rating" integer, "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_reviews_on_event_id" ON "reviews" ("event_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_reviews_on_user_id" ON "reviews" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "email" character varying, "encrypted_password" character varying, "first_name" character varying, "last_name" character varying, "remember_created_at" timestamp(6), "reset_password_sent_at" timestamp(6), "reset_password_token" character varying, "role" character varying DEFAULT 'regular' NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "venues" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "venues" ("id" bigserial primary key, "address" character varying, "capacity" integer, "created_at" timestamp(6) NOT NULL, "name" character varying, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "active_storage_attachments" ADD CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "active_storage_variant_records" ADD CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "events" ADD CONSTRAINT "fk_rails_fd5598a81d"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "events" ADD CONSTRAINT "fk_rails_91125650cd"
+FOREIGN KEY ("organizer_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "events" ADD CONSTRAINT "fk_rails_f476266cf4"
+FOREIGN KEY ("venue_id")
+  REFERENCES "venues" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "registrations" ADD CONSTRAINT "fk_rails_05fe64f220"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "registrations" ADD CONSTRAINT "fk_rails_2e0658f554"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "reviews" ADD CONSTRAINT "fk_rails_6429803e23"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "reviews" ADD CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260606000445)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260605183224),
+(20260523040701),
+(20260521232707),
+(20260521232706),
+(20260504003938),
+(20260504003937),
+(20260504003936),
+(20260503235036),
+(20260503235035),
+(20260503235034);[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-06-08 20:17:15.990137', '2026-06-08 20:17:15.990138') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '07729a5b549a0b5b85e567f460ee3963042b789e', '2026-06-08 20:17:15.990843', '2026-06-08 20:17:15.990844') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "action_text_rich_texts" DISABLE TRIGGER ALL;ALTER TABLE "active_storage_variant_records" DISABLE TRIGGER ALL;ALTER TABLE "categories" DISABLE TRIGGER ALL;ALTER TABLE "events" DISABLE TRIGGER ALL;ALTER TABLE "registrations" DISABLE TRIGGER ALL;ALTER TABLE "reviews" DISABLE TRIGGER ALL;ALTER TABLE "active_storage_blobs" DISABLE TRIGGER ALL;ALTER TABLE "active_storage_attachments" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "venues" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[36mFixtures Load (2.3ms)[0m  [1m[31mDELETE FROM "action_text_rich_texts";
+DELETE FROM "categories";
+DELETE FROM "events";
+DELETE FROM "registrations";
+DELETE FROM "reviews";
+DELETE FROM "users";
+DELETE FROM "venues";
+INSERT INTO "categories" ("id", "created_at", "description", "name", "updated_at") VALUES (980190962, '2026-06-08 20:17:16.103707', DEFAULT, 'MyString', '2026-06-08 20:17:16.103707'), (298486374, '2026-06-08 20:17:16.103707', DEFAULT, 'MyString', '2026-06-08 20:17:16.103707');
+INSERT INTO "events" ("id", "category_id", "created_at", "description", "end_date", "max_attendees", "organizer_id", "start_date", "status", "title", "updated_at", "venue_id") VALUES (980190962, 980190962, '2026-06-08 20:17:16.109810', 'MyText', '2026-05-03 19:50:36', 1, 64810937, '2026-05-03 19:50:36', 1, 'MyString', '2026-06-08 20:17:16.109810', 980190962), (298486374, 298486374, '2026-06-08 20:17:16.109810', 'MyText', '2026-05-03 19:50:36', 1, 64810937, '2026-05-03 19:50:36', 1, 'MyString', '2026-06-08 20:17:16.109810', 298486374);
+INSERT INTO "registrations" ("id", "created_at", "event_id", "status", "updated_at", "user_id") VALUES (980190962, '2026-06-08 20:17:16.118568', 980190962, 1, '2026-06-08 20:17:16.118568', 980190962), (298486374, '2026-06-08 20:17:16.118568', 298486374, 1, '2026-06-08 20:17:16.118568', 298486374);
+INSERT INTO "reviews" ("id", "comment", "created_at", "event_id", "rating", "updated_at", "user_id") VALUES (980190962, 'MyText', '2026-06-08 20:17:16.119326', 980190962, 1, '2026-06-08 20:17:16.119326', 980190962), (298486374, 'MyText', '2026-06-08 20:17:16.119326', 298486374, 1, '2026-06-08 20:17:16.119326', 298486374);
+INSERT INTO "users" ("id", "created_at", "email", "encrypted_password", "first_name", "last_name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "updated_at") VALUES (980190962, '2026-06-08 20:17:16.120014', 'MyString', 'MyString', 'MyString', 'MyString', DEFAULT, DEFAULT, DEFAULT, 'MyString', '2026-06-08 20:17:16.120014'), (298486374, '2026-06-08 20:17:16.120014', 'MyString', 'MyString', 'MyString', 'MyString', DEFAULT, DEFAULT, DEFAULT, 'MyString', '2026-06-08 20:17:16.120014');
+INSERT INTO "venues" ("id", "address", "capacity", "created_at", "name", "updated_at") VALUES (980190962, 'MyString', 1, '2026-06-08 20:17:16.120505', 'MyString', '2026-06-08 20:17:16.120505'), (298486374, 'MyString', 1, '2026-06-08 20:17:16.120505', 'MyString', '2026-06-08 20:17:16.120505')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
