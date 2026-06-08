@@ -41,3 +41,10 @@
 - Rails 8.1.3
 - PostgreSQL
 
+### **Install dependencies**
+```
+   bundle install
+   npm install
+```
+
+
